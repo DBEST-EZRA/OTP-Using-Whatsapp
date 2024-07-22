@@ -1,9 +1,11 @@
+<!-- This is just a sample UI template. MODIFY to connect to the server. It is not working -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OTP Verification</title>
+    <title>OTP Verification Using Whatsapp</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -43,7 +45,11 @@
   <body>
     <div class="container">
       <h2>OTP Verification</h2>
-      <input type="email" id="email" placeholder="Enter your email" />
+      <input
+        type="text"
+        id="text"
+        placeholder="Enter your phone eg 254700000000"
+      />
       <button onclick="generateOTP()">Generate OTP</button>
       <input type="text" id="otp" placeholder="Enter OTP" />
       <button onclick="verifyOTP()">Verify OTP</button>
@@ -52,14 +58,14 @@
 
     <script>
       async function generateOTP() {
-        const email = document.getElementById("email").value;
+        const phone = document.getElementById("email").value;
 
-        const response = await fetch("http://localhost:5000/generate-otp", {
+        const response = await fetch("http://localhost:5000/send-otp", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ phone }),
         });
 
         const result = await response.text();
@@ -75,7 +81,7 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, otp }),
+          body: JSON.stringify({ phone, otp }),
         });
 
         const result = await response.text();
