@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilionumber = process.env.TWILIO_NUMBER;
 const client = require("twilio")(accountSid, authToken);
 
 const db = mysql.createPool({
@@ -52,7 +53,7 @@ app.get("/send-otp", async (req, res) => {
 
     await client.messages.create({
       body: `Your OTP is: ${otp}`,
-      from: `whatsapp:+14155238886`,
+      from: `whatsapp:${twilionumber}`,
       to: `whatsapp:${phone}`,
     });
 
